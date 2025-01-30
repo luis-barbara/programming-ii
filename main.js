@@ -1,7 +1,6 @@
 let horas = prompt("Que horas são?")
 
 
-
 if (horas < 13) {
     console.log("Bom dia");
 }
