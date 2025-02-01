@@ -15,11 +15,11 @@ function calcDesconto(preco, desconto) {
 }
 
 
-function aplicarDesconto(preco, acumulado = 0) {
-    if (!preco) {
+function aplicarDesconto(preco = null, acumulado = 0) {
+    if (preco === null) {
         preco = parseFloat(prompt("Qual o preço do produto?").replace(",", "."));
         if (isNaN(preco) || preco <= 0) {
-            console.log("Por favor, insere um valor válido para o preço.");
+            console.log("Por favor, insere um valor válido para o preço (maior que 0).");
             return aplicarDesconto();
         }
     }
@@ -48,6 +48,7 @@ function aplicarDesconto(preco, acumulado = 0) {
     // Se o limite foi atingido, não pergunta mais
     if (acumulado >= LIMITE_DESCONTO) {
         console.log(`O limite máximo de desconto (${LIMITE_DESCONTO}%) foi atingido.`);
+        console.log("Obrigado por utilizar a calculadora de descontos!");
         return;
     }
 
@@ -62,7 +63,8 @@ function aplicarDesconto(preco, acumulado = 0) {
         return;
     }
     else {
-        console.log("Resposta inválida.");
+        console.log("Resposta inválida. Por favor, insira 's' para continuar ou 'n' para sair.");
+        return aplicarDesconto(precoComDesconto, acumulado);
     }
 }
 
