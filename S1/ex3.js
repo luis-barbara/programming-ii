@@ -6,7 +6,7 @@ class Solution {
 }
     };
 
---------------------------------------------------------------*/
+--------------------------------------------------------------
 
 //O(n2)
 
@@ -31,19 +31,23 @@ console.timeEnd("O(n2)");
 
 /*-------------------------------------------------------------------
 
-//O(n)
+//O(n)*/
+
+
+console.time("O(n)");
 
 function twoSum(nums, target) {
-    const numMap = new Map();
+    const map = new Map();
 
     for (let i = 0; i < nums.length; i++) {
         const complement = target - nums[i];
 
-        if (numMap.has(complement)) {
-            return [numMap.get(complement), i];
+        if (map.has(complement)) {
+            console.log(`${complement} + ${nums[i]} = ${target}`);
+            return [map.get(complement), i];
         }
 
-        numMap.set(nums[i], i);
+        map.set(nums[i], i);
     }
 }
 
@@ -51,7 +55,7 @@ function twoSum(nums, target) {
 const nums = [2, 7, 11, 15];
 const target = 9;
 console.log(twoSum(nums, target));
-
+console.timeEnd("O(n)");
 
 
 
