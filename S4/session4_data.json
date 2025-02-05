@@ -8,5 +8,10 @@
     "name": "Bob",
     "email": "bob@example.com",
     "age": 25
+  },
+  {
+    "name": "Charlie",
+    "email": "charlie@example.com",
+    "age": 18
   }
 ]
