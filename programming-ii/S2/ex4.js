@@ -1,0 +1,1 @@
+// 4.Explain why O(2n + 5) simplifies to O(n).
