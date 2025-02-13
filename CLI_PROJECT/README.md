@@ -21,3 +21,12 @@ Output esperado:
 Imagem analisada: https://example.com/image.jpg
 Objeto detectado: Dog
 Confiança: 95%
+
+
+
+
+
+Snyk
+npm install -g snyk
+snyk auth
+snyk monitor --all-projects --org=6eb786e1-b22b-41b0-a680-1b369a9df641
