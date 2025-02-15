@@ -1,6 +1,6 @@
-const yargs = require('yargs'); 
-const dns = require('dns').promises;
-
+const yargs = require('yargs');
+const dns = require('node:dns').promises;
+const fs = require('node:fs');
 
 const SHODAN_API_KEY = 'IPNDTMQb8uSMXg7Nc0ASXZ1Ri2ft4fMY';
 
@@ -18,9 +18,9 @@ const fetchShodanData = async (ip) => {
 const resolveDomain = async (domain) => {
   try {
     const addresses = await dns.resolve(domain);
-    return addresses[0]; // Primeiro IP encontrado
+    return addresses[0];
   } catch {
-    return domain; // Se falhar, assume que já é um IP
+    return domain;
   }
 };
 
@@ -51,42 +51,48 @@ const processShodanData = (data) => {
 
 // Exibe os resultados formatados
 const displayResults = (data) => {
-  console.log(`🔍 Resultados para o IP ${data.ip}:`);
-  console.log(`- Localização: ${data.city || 'Desconhecido'}`);
-  console.log(`- País: ${data.country}`);
-  console.log(`- Organização/ISP: ${data.organization}`);
-  console.log(`- ASN: ${data.asn}`);
-  console.log(`- Sistema Operacional: ${data.os}`);
-  console.log(`- Latitude: ${data.latitude}, Longitude: ${data.longitude}`);
-  console.log(`- Portas abertas: ${data.ports.join(', ') || 'Nenhuma'}`);
-
+  console.log('\n════════════════════════════════════');
+  console.log(`🔍  Resultados para o IP: ${data.ip}`);
+  console.log('════════════════════════════════════');
+  console.log(`🌍  Localização: ${data.city || 'Desconhecido'}, ${data.country}`);
+  console.log(`🏢  Organização: ${data.organization}`);
+  console.log(`📡  ASN: ${data.asn}`);
+  console.log(`🖥️  Sistema Operacional: ${data.os}`);
+  console.log(`📌  Coordenadas: Latitude ${data.latitude}, Longitude ${data.longitude}`);
+  console.log('────────────────────────────────────');
+  console.log(`🚪  Portas abertas: ${data.ports.length > 0 ? data.ports.join(', ') : 'Nenhuma'}`);
+  console.log('────────────────────────────────────');
   if (data.vulnerabilities.length > 0) {
-    console.log(`- ⚠ Vulnerabilidades encontradas: ${data.vulnerabilities.join(', ')}`);
-  } else {
-    console.log('- ✅ Nenhuma vulnerabilidade conhecida encontrada.');
-  }
-
-  if (data.services.length > 0) {
-    console.log('- Serviços encontrados:');
-    data.services.forEach((service) => {
-      const product = service.product || 'Desconhecido';
-      const version = service.version || 'Desconhecida';
-      console.log(`  * Porta ${service.port}: ${product}, Versão: ${version}`);
+    console.log('⚠️  Vulnerabilidades encontradas:');
+    data.vulnerabilities.forEach((vuln) => {
+      console.log(`   - 🔴 ${vuln}`);
     });
+  } else {
+    console.log('✅  Nenhuma vulnerabilidade conhecida encontrada.');
   }
-
-  if (data.tags.length > 0) {
-    console.log('- Tags associadas:');
-    data.tags.forEach((tag) => console.log(`  * ${tag}`));
+  console.log('────────────────────────────────────');
+  if (data.services.length > 0) {
+    console.log('🛠️  Serviços detectados:');
+    const serviceTable = data.services.map((service) => ({
+      Porta: service.port || 'N/A',
+      Produto: service.product || 'Desconhecido',
+      Versão: service.version || 'Desconhecida',
+    }));
+    console.table(serviceTable);
+  } else {
+    console.log('📭  Nenhum serviço identificado.');
   }
-
-  if (data.history.length > 0) {
-    console.log('- Histórico de IP:');
-    data.history.forEach((item) => console.log(`  * ${item.timestamp}: ${item.ip}`));
-  }
+  console.log('════════════════════════════════════\n');
 };
 
-// Função principal
+// Função para salvar os resultados em um arquivo JSON
+const saveResultsToFile = (data) => {
+  const filename = `shodan_results_${data.ip}.json`; // Nome do arquivo com o IP
+  fs.writeFileSync(filename, JSON.stringify(data, null, 2), 'utf8');
+  console.log(`✅ Resultados salvos em ${filename}`);
+};
+
+// Função principal atualizada
 const main = async () => {
   const argv = yargs
     .option('target', {
@@ -94,6 +100,23 @@ const main = async () => {
       description: 'O IP ou domínio a ser verificado',
       type: 'string',
       demandOption: true,
+    })
+    .option('output', {
+      alias: 'o',
+      description: 'Formato de saída (text ou json)',
+      type: 'string',
+      choices: ['text', 'json'],
+      default: 'text',
+    })
+    .option('filter', {
+      alias: 'f',
+      description: 'Filtrar saída (ex: vulnerabilities, ports)',
+      type: 'string',
+    })
+    .option('save', {
+      description: 'Salvar os resultados em um arquivo',
+      type: 'boolean',
+      default: false,
     })
     .help()
     .alias('help', 'h')
@@ -104,7 +127,24 @@ const main = async () => {
     const ip = await resolveDomain(target);
     const data = await fetchShodanData(ip);
     const processedData = processShodanData(data);
-    displayResults(processedData);
+
+    if (argv.output === 'json') {
+      console.log(JSON.stringify(processedData, null, 2));
+    } else {
+      if (argv.filter === 'vulnerabilities') {
+        console.log(`🔍 Vulnerabilidades para o IP ${processedData.ip}:`);
+        console.log(processedData.vulnerabilities.length > 0
+          ? processedData.vulnerabilities.join(', ')
+          : 'Nenhuma vulnerabilidade encontrada.');
+      } else {
+        displayResults(processedData);
+      }
+    }
+
+    // Salva os resultados se --save for true
+    if (argv.save) {
+      saveResultsToFile(processedData);
+    }
   } catch (error) {
     console.error('❌ Erro:', error.message);
   }

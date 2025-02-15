@@ -1,10 +1,10 @@
-A API do Shodan oferece acesso a informações sobre dispositivos conectados à internet, incluindo vulnerabilidades conhecidas, e não requer autenticação para acessar os dados básicos de pesquisa (para consultas simples).
+# API Selection
 
-A API do Shodan permite buscar dispositivos conectados à internet, incluindo servidores e dispositivos de IoT, e fornece dados como vulnerabilidades, serviços expostos, e muito mais. Isso a torna útil para realizar auditorias de segurança e proteger sistemas contra vulnerabilidades conhecidas.
+1. **Chosen API**  
+   The **Shodan API** was selected as it provides access to information about internet-connected devices, including vulnerabilities, exposed services, and open ports.
 
-A Shodan é interessante para quem trabalha com segurança cibernética, pois permite verificar vulnerabilidades de dispositivos conectados à Internet. Isso pode ser útil para administradores de sistemas e profissionais de segurança que desejam identificar e corrigir brechas de segurança.
+2. **Justification**  
+   I chose the Shodan API because cybersecurity is a field I find very interesting and would like to deepen my knowledge in. This API is particularly useful for security audits, allowing professionals to identify exposed services and potential vulnerabilities in internet-connected devices, servers, and IoT systems. Additionally, it does not require authentication for basic searches, making it an accessible tool for learning and security analysis.
 
-A API do Shodan foi escolhida porque ela permite verificar vulnerabilidades em domínios e IPs, fornecendo informações detalhadas sobre serviços expostos, portas abertas e falhas de segurança conhecidas. Isso é essencial para análises de segurança e pentesting
-
-const SHODAN_API_KEY = 'IPNDTMQb8uSMXg7Nc0ASXZ1Ri2ft4fMY';
+SHODAN_API_KEY = 'IPNDTMQb8uSMXg7Nc0ASXZ1Ri2ft4fMY';
 
