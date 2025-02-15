@@ -1,32 +1,6 @@
-OpenVisionAPI
-Open source computer vision API based on open source models
+A API do Shodan oferece acesso a informações sobre dispositivos conectados à internet, incluindo vulnerabilidades conhecidas, e não requer autenticação para acessar os dados básicos de pesquisa (para consultas simples).
 
-Descrição: A OpenVisionAPI oferece soluções de reconhecimento de imagem. Pode ser usada para realizar tarefas como classificação de imagens ou moderação de conteúdo.
+A API do Shodan permite buscar dispositivos conectados à internet, incluindo servidores e dispositivos de IoT, e fornece dados como vulnerabilidades, serviços expostos, e muito mais. Isso a torna útil para realizar auditorias de segurança e proteger sistemas contra vulnerabilidades conhecidas.
 
-Escolhi esta API porque tenho especial interesse por inteligencia artificial, machine learning. 
+A Shodan é interessante para quem trabalha com segurança cibernética, pois permite verificar vulnerabilidades de dispositivos conectados à Internet. Isso pode ser útil para administradores de sistemas e profissionais de segurança que desejam identificar e corrigir brechas de segurança.
 
-
-- Projeto: 
-Analisr Imagens com OpenVisionAPI
-
-- Objetivo:
-Criar uma ferramenta de linha de comando que analisa imagens (fornecidas por uma URL) e retorna informações sobre os objetos detectados, como a classificação e a confiança da análise.
-
-
-- Exemplo
-Instruções:
-node openvisioncli.js --image "https://example.com/image.jpg"
-
-Output esperado:
-Imagem analisada: https://example.com/image.jpg
-Objeto detectado: Dog
-Confiança: 95%
-
-
-
-
-
-Snyk
-npm install -g snyk
-snyk auth
-snyk monitor --all-projects --org=6eb786e1-b22b-41b0-a680-1b369a9df641
