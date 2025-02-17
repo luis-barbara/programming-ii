@@ -1,13 +1,20 @@
-function* range(start, end) {
-    for (let i = start; i <= end; i++) {
-            yield i;
+function* evenNumbers(list) {
+    for (let index = 0; index < list.length; index++)
+        if (list[index] % 2 === 0) {
+            yield list[index];
         }
     }      
 
-const start = 5;
-const end = 10;
+let list = [1, 2, 3, 4, 5, 6, 7, 8];
+let items = evenNumbers(list);
 
-for (let num of range(start, end)) {
-    console.log(num);
-}
+let getNext = items.next();
+let count = 0;
+let n = 3;
+
+while(!getNext.done && count < n) {
+    console.log(getNext.value);
+    getNext = items.next();
+    count++;
+} 
 
