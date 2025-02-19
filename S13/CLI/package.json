@@ -1,0 +1,25 @@
+{
+  "name": "cli",
+  "version": "0.1.0",
+  "description": "My first cli tool",
+  "main": "/workspaces/programming-ii/S13/CLI/src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/index.js"
+  },
+  "type":"module",
+  "keywords": [
+    "cli",
+    "to",
+    "demo"
+  ],
+  "author": "Luis Barbara <luis_barbara@eticalgarve.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "winston": "^3.17.0"
+  }
+}
