@@ -4,7 +4,13 @@ const fs = require('node:fs');
 
 const SHODAN_API_KEY = 'IPNDTMQb8uSMXg7Nc0ASXZ1Ri2ft4fMY';
 
-// Função para buscar dados do Shodan
+
+/**
+ * Fetches data from the Shodan API for a given IP address.
+ * @param {string} ip - The IP address to query.
+ * @returns {Promise<Object>} - A promise that resolves to the API response.
+ * @throws {Error} - Throws an error if the request fails.
+ */
 const fetchShodanData = async (ip) => {
   const url = `https://api.shodan.io/shodan/host/${ip}?key=${SHODAN_API_KEY}`;
   const response = await fetch(url);
@@ -14,7 +20,12 @@ const fetchShodanData = async (ip) => {
   return response.json();
 };
 
-// Resolve um domínio para um IP
+
+/**
+ * Resolves a domain to an IP address.
+ * @param {string} domain - The domain name to resolve.
+ * @returns {Promise<string>} - A promise that resolves to the IP address.
+ */
 const resolveDomain = async (domain) => {
   try {
     const addresses = await dns.resolve(domain);
@@ -24,7 +35,11 @@ const resolveDomain = async (domain) => {
   }
 };
 
-// Processa os dados da API do Shodan
+/**
+ * Processes the data received from the Shodan API.
+ * @param {Object} data - The raw data from the API.
+ * @returns {Object} - Processed data with key information extracted.
+ */
 const processShodanData = (data) => {
   const services = Array.isArray(data.data) ? data.data : [];
   const firstService = services.length > 0 ? services[0] : {};
@@ -49,7 +64,10 @@ const processShodanData = (data) => {
   };
 };
 
-// Exibe os resultados formatados
+/**
+ * Displays the results in a formatted way.
+ * @param {Object} data - The processed data to display.
+ */
 const displayResults = (data) => {
   console.log('\n════════════════════════════════════');
   console.log(`🔍  Resultados para o IP: ${data.ip}`);
@@ -85,14 +103,19 @@ const displayResults = (data) => {
   console.log('════════════════════════════════════\n');
 };
 
-// Função para salvar os resultados em um arquivo JSON
+/**
+ * Saves the processed data to a JSON file.
+ * @param {Object} data - The processed data to save.
+ */
 const saveResultsToFile = (data) => {
   const filename = `shodan_results_${data.ip}.json`; // Nome do arquivo com o IP
   fs.writeFileSync(filename, JSON.stringify(data, null, 2), 'utf8');
   console.log(`✅ Resultados salvos em ${filename}`);
 };
 
-// Função principal atualizada
+/**
+ * Main function to handle CLI arguments and execute logic.
+ */
 const main = async () => {
   const argv = yargs
     .option('target', {
@@ -141,7 +164,9 @@ const main = async () => {
       }
     }
 
-    // Salva os resultados se --save for true
+/**
+ * Saves the processed data if --save is true
+ */
     if (argv.save) {
       saveResultsToFile(processedData);
     }
