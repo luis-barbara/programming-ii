@@ -1,0 +1,16 @@
+{
+  "name": "modules",
+  "version": "0.1.0",
+  "description": "My first module cli tool",
+  "main": "/workspaces/programming-ii/S15/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "type": "module",
+  "author": "Luis Barbara <luis_barbara@eticalgarve.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

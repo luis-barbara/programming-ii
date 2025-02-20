@@ -1,0 +1,27 @@
+{
+  "name": "modules",
+  "version": "0.1.0",
+  "description": "My first module cli tool",
+  "main": "/workspaces/programming-ii/S15/ex1/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node ex1/index.js"
+  },
+  "type": "module",
+  "keywords": [
+    "cli",
+    "to",
+    "demo"
+  ],
+  "author": "Luis Barbara <luis_barbara@eticalgarve.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@faker-js/faker": "^9.5.0",
+    "csv-stringify": "^6.5.2"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "winston": "^3.17.0"
+  }
+}
