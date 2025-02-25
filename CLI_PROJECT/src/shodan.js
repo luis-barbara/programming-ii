@@ -1,4 +1,4 @@
-import 'dotenv/config'; // Carrega as variáveis do .env
+import 'dotenv/config'; 
 import axios from 'axios';
 import { promises as dns } from 'node:dns';
 import fs from 'fs';
