@@ -1,6 +1,10 @@
 import { resolveDomain, processShodanData, displayResults } from './shodan.js'; 
 
 describe('resolveDomain', () => {
+/**
+   * Tests the correct processing of Shodan API data.
+   * It checks whether the returned data is processed correctly into a desired format.
+   */
   it('deve resolver um domínio para um IP', async () => {
     const ip = await resolveDomain('example.com');
     expect(ip).toMatch(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/);
@@ -14,6 +18,10 @@ describe('resolveDomain', () => {
 });
 
 describe('processShodanData', () => {
+/**
+   * Tests the display functionality of the results.
+   * It ensures that the correct data is logged to the console.
+   */
   it('deve processar os dados da API do Shodan corretamente', () => {
     const mockData = {
       ip_str: '192.168.1.1',
@@ -86,7 +94,7 @@ describe('displayResults', () => {
       history: [],
     };
 
-    // Mock do console.log para capturar a saída
+    // Mock do console.log para ver a saída
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
     displayResults(mockData);

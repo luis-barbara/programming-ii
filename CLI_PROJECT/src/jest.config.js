@@ -3,7 +3,7 @@ export default {
       '^.+\\.js$': 'babel-jest', 
     },
     moduleNameMapper: {
-      '^.+\\.css$': 'identity-obj-proxy', 
+      '^.+\\.css$': 'identity-obj-proxy', //caso existisse CSS no projeto
     },
   };
   
