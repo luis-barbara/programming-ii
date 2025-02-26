@@ -1,0 +1,27 @@
+{
+  "name": "modules",
+  "version": "0.1.0",
+  "description": "Module cli tool",
+  "main": "/workspaces/programming-ii/S17/src/main.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node S17/src/main.js"
+  },
+  "type": "module",
+  "keywords": [
+    "CLI",
+    "TODO"
+    
+  ],
+  "author": "Luis Barbara <luis_barbara@eticalgarve.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@faker-js/faker": "^9.5.0",
+    "csv-stringify": "^6.5.2"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "winston": "^3.17.0"
+  }
+}

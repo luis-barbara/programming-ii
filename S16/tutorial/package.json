@@ -1,0 +1,16 @@
+{
+  "name": "s16",
+  "version": "1.0.0",
+  "main": "jest_test.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "type": "module"
+  
+}

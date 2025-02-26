@@ -1,11 +1,12 @@
 import 'dotenv/config'; 
-import axios from 'axios';
 import { promises as dns } from 'node:dns';
-import fs from 'fs';
+import fs from "node:fs";
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import process from "node:process";
 
-const SHODAN_API_KEY = process.env.SHODAN_API_KEY;
+
+export const SHODAN_API_KEY = process.env.SHODAN_API_KEY;
 
 /**
  * Fetches data from the Shodan API for a given IP address.
@@ -13,7 +14,7 @@ const SHODAN_API_KEY = process.env.SHODAN_API_KEY;
  * @returns {Promise<Object>} - A promise that resolves to the API response.
  * @throws {Error} - Throws an error if the request fails.
  */
-const fetchShodanData = async (ip) => {
+export const fetchShodanData = async (ip) => {
   const url = `https://api.shodan.io/shodan/host/${ip}?key=${SHODAN_API_KEY}`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -27,7 +28,7 @@ const fetchShodanData = async (ip) => {
  * @param {string} domain - The domain name to resolve.
  * @returns {Promise<string>} - A promise that resolves to the IP address.
  */
-const resolveDomain = async (domain) => {
+export const resolveDomain = async (domain) => {
   try {
     const addresses = await dns.resolve(domain);
     return addresses[0];
@@ -41,7 +42,7 @@ const resolveDomain = async (domain) => {
  * @param {Object} data - The raw data from the API.
  * @returns {Object} - Processed data with key information extracted.
  */
-const processShodanData = (data) => {
+export const processShodanData = (data) => {
   const services = Array.isArray(data.data) ? data.data : [];
   const firstService = services.length > 0 ? services[0] : {};
   const location = firstService.location || {};
@@ -69,7 +70,7 @@ const processShodanData = (data) => {
  * Displays the results in a formatted way.
  * @param {Object} data - The processed data to display.
  */
-const displayResults = (data) => {
+export const displayResults = (data) => {
   // Título para a primeira tabela
   console.log("\n🔍  Resultados para a pesquisa:");
   // Tabela para exibir as informações principais
@@ -115,7 +116,7 @@ const displayResults = (data) => {
  * Saves the processed data to a JSON file.
  * @param {Object} data - The processed data to save.
  */
-const saveResultsToFile = (data) => {
+export const saveResultsToFile = (data) => {
   const filename = `shodan_results_${data.ip}.json`; // Nome do arquivo com o IP
   fs.writeFileSync(filename, JSON.stringify(data, null, 2), 'utf8');
   console.log(`✅ Resultados salvos em ${filename}`);
@@ -124,7 +125,7 @@ const saveResultsToFile = (data) => {
 /**
  * Main function to handle CLI arguments and execute logic.
  */
-const cli = async () => {
+export const cli = async () => {
   const argv = yargs(hideBin(process.argv))
     .option('target', {
       alias: 't',
@@ -172,9 +173,6 @@ const cli = async () => {
       }
     }
 
-    /**
-     * Saves the processed data if --save is true
-     */
     if (argv.save) {
       saveResultsToFile(processedData);
     }
@@ -183,4 +181,7 @@ const cli = async () => {
   }
 };
 
-cli();
+// Evita a execução automática do `cli()` durante os testes
+if (process.env.NODE_ENV !== 'test') {
+  cli();
+}

@@ -1,0 +1,31 @@
+{
+  "name": "modules",
+  "version": "0.1.0",
+  "description": "My first module cli tool",
+  "main": "/workspaces/programming-ii/CLI_PROJECT/src/shodan.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/shodan.js"
+  },
+  "type": "module",
+  "keywords": [
+    "cli",
+    "to",
+    "demo"
+  ],
+  "author": "Luis Barbara <luis_barbara@eticalgarve.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
+    "@faker-js/faker": "^9.5.0",
+    "csv-stringify": "^6.5.2",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "chalk": "^5.4.1",
+    "node-fetch": "^3.3.2",
+    "winston": "^3.17.0",
+    "yargs": "^17.7.2"
+  }
+}
